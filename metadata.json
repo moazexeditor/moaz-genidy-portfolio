@@ -1,0 +1,6 @@
+{
+  "name": "AI Video Creator - Cosmic Portfolio",
+  "description": "An immersive cosmic portfolio for an AI Video Creator with interactive animated space elements, categorized video gallery with integrated player, and direct contact buttons.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
