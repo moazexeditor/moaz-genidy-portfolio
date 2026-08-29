@@ -1,18 +1,16 @@
 import React, { useState, useMemo } from 'react';
-import { Film, RefreshCw } from 'lucide-react';
 import { VideoItem } from '../types';
 import { CATEGORIES, VIDEOS } from '../data/videos';
 import { VideoCard } from './VideoCard';
+import { Reveal } from './Reveal';
 
 interface VideoGalleryProps {
   onSelectVideo: (video: VideoItem) => void;
-  lang?: 'ar' | 'en';
 }
 
 export const VideoGallery: React.FC<VideoGalleryProps> = ({ onSelectVideo }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  // Filter videos by category
   const filteredVideos = useMemo(() => {
     return VIDEOS.filter((video) => {
       return selectedCategory === 'all' || video.category === selectedCategory;
@@ -20,24 +18,27 @@ export const VideoGallery: React.FC<VideoGalleryProps> = ({ onSelectVideo }) => 
   }, [selectedCategory]);
 
   return (
-    <section id="gallery" className="py-12 md:py-20 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="gallery" className="py-16 md:py-24 border-t border-[#E8DFD1] bg-[#F7F4EE]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Gallery Section Header */}
-        <div className="text-center space-y-3 max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 text-cyan-300 text-xs font-bold shadow-md">
-            <Film className="w-4 h-4 text-purple-400" />
-            <span>AI Videos Gallery</span>
+        {/* Section Header */}
+        <Reveal distance={20} duration={650} className="text-center space-y-4 max-w-2xl mx-auto mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8DFD1]/80 text-[#1F2430] text-xs font-semibold uppercase tracking-wider">
+            <span>Portfolio</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Video Showcase
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1F2430] tracking-tight">
+            Commercial Showcase
           </h2>
-        </div>
 
-        {/* Category Filter Bar */}
-        <div className="mb-10">
-          <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-3 pt-1 scrollbar-none px-2">
+          <p className="text-sm sm:text-base text-[#1F2430]/70 leading-relaxed">
+            Browse commercial works across brand campaigns, furniture & interior, clinics, food, apps, and luxury products.
+          </p>
+        </Reveal>
+
+        {/* Category Filters */}
+        <Reveal distance={15} delay={100} duration={600} className="mb-12">
+          <div className="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-4 pt-1 scrollbar-none">
             {CATEGORIES.map((cat) => {
               const isActive = selectedCategory === cat.id;
               const count = cat.id === 'all'
@@ -48,15 +49,15 @@ export const VideoGallery: React.FC<VideoGalleryProps> = ({ onSelectVideo }) => 
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all duration-200 border shrink-0 ${
+                  className={`btn-interaction flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold whitespace-nowrap shrink-0 ${
                     isActive
-                      ? 'bg-gradient-to-r from-purple-600 to-cyan-600 text-white border-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)] scale-105'
-                      : 'bg-black/60 backdrop-blur-xl text-slate-300 border-white/10 hover:text-white hover:border-white/20 hover:bg-black/80'
+                      ? 'bg-[#1F2430] text-[#E8DFD1] shadow-sm'
+                      : 'bg-[#E8DFD1]/60 text-[#1F2430] hover:bg-[#E8DFD1]'
                   }`}
                 >
                   <span>{cat.label}</span>
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${
-                    isActive ? 'bg-black/80 text-cyan-300' : 'bg-white/10 text-slate-400'
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full transition-colors ${
+                    isActive ? 'bg-[#E8DFD1] text-[#1F2430] font-bold' : 'bg-[#1F2430]/10 text-[#1F2430]'
                   }`}>
                     {count}
                   </span>
@@ -64,32 +65,37 @@ export const VideoGallery: React.FC<VideoGalleryProps> = ({ onSelectVideo }) => 
               );
             })}
           </div>
-        </div>
+        </Reveal>
 
-        {/* Video Grid */}
+        {/* Video Grid with 80ms Stagger per Row */}
         {filteredVideos.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredVideos.map((video) => (
-              <VideoCard
-                key={video.id}
-                video={video}
-                onPlay={onSelectVideo}
-              />
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8">
+            {filteredVideos.map((video, index) => {
+              const staggerDelay = (index % 4) * 80;
+              return (
+                <Reveal
+                  key={video.id}
+                  delay={staggerDelay}
+                  distance={30}
+                  duration={650}
+                  direction="up"
+                >
+                  <VideoCard
+                    video={video}
+                    onPlay={onSelectVideo}
+                  />
+                </Reveal>
+              );
+            })}
           </div>
         ) : (
-          /* Empty State */
-          <div className="text-center py-16 space-y-4 bg-slate-900/50 rounded-3xl border border-purple-900/30 p-8 max-w-lg mx-auto">
-            <Film className="w-12 h-12 text-purple-400/50 mx-auto" />
-            <h3 className="text-lg font-bold text-white">
-              No matching videos found
-            </h3>
+          <div className="text-center py-16 bg-[#E8DFD1]/40 rounded-2xl border border-[#E8DFD1] p-8 max-w-md mx-auto space-y-4">
+            <p className="text-sm font-semibold text-[#1F2430]">No commercials found in this category.</p>
             <button
               onClick={() => setSelectedCategory('all')}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs transition-colors"
+              className="btn-interaction px-4 py-2 rounded-full bg-[#1F2430] text-[#E8DFD1] text-xs font-semibold"
             >
-              <RefreshCw className="w-4 h-4" />
-              <span>Reset Category</span>
+              Show All Commercials
             </button>
           </div>
         )}

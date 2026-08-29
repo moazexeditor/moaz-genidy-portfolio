@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { SpaceBackgroundCanvas } from './components/SpaceBackgroundCanvas';
-import { CosmicHeader } from './components/CosmicHeader';
+import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { VideoGallery } from './components/VideoGallery';
-import { VideoPlayerModal } from './components/VideoPlayerModal';
+import { AboutSection } from './components/AboutSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { VIDEOS } from './data/videos';
 import { VideoItem } from './types';
 
@@ -25,32 +25,31 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-slate-100 font-sans selection:bg-purple-600 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#F7F4EE] text-[#1F2430] font-sans selection:bg-[#1F2430] selection:text-[#E8DFD1] relative">
       
-      {/* Space Background Canvas with Starfield & Planets */}
-      <SpaceBackgroundCanvas interactive={true} />
-
       {/* Main Container */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+      <div className="flex flex-col min-h-screen">
         
-        {/* Header */}
-        <CosmicHeader
-          videoCount={VIDEOS.length}
-        />
+        {/* Minimal Navigation Header */}
+        <Header videoCount={VIDEOS.length} />
 
         {/* Main Content */}
         <main className="flex-1">
           {/* Hero Section */}
           <HeroSection
             onExploreClick={handleScrollToGallery}
+            videoCount={VIDEOS.length}
           />
 
-          {/* Video Gallery Section */}
+          {/* Video Gallery Showcase */}
           <VideoGallery
             onSelectVideo={(video) => setSelectedVideo(video)}
           />
 
-          {/* Contact Buttons Section */}
+          {/* Approach & Creative Direction */}
+          <AboutSection />
+
+          {/* Contact Section */}
           <ContactSection />
         </main>
 
@@ -59,7 +58,7 @@ export default function App() {
 
       </div>
 
-      {/* In-Site Video Player Modal */}
+      {/* Video Player Modal */}
       {selectedVideo && (
         <VideoPlayerModal
           video={selectedVideo}
@@ -72,5 +71,6 @@ export default function App() {
     </div>
   );
 }
+
 
 

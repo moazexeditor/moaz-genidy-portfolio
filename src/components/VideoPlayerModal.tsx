@@ -7,7 +7,6 @@ interface VideoPlayerModalProps {
   allVideos: VideoItem[];
   onClose: () => void;
   onSelectVideo: (video: VideoItem) => void;
-  lang?: 'ar' | 'en';
 }
 
 export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
@@ -21,8 +20,8 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowRight') handlePrev();
-      if (e.key === 'ArrowLeft') handleNext();
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
@@ -38,7 +37,6 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
   const handleNext = () => onSelectVideo(nextVideo);
 
   const youtubeEmbedUrl = `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
-
   const shareUrl = `https://www.youtube.com/shorts/${video.youtubeId}`;
 
   const handleCopyShare = () => {
@@ -50,39 +48,37 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
   const currentTitle = video.title;
 
   const whatsappMsg = encodeURIComponent(
-    `Hello, I'm interested in an AI video similar to "${video.title}" (${shareUrl})`
+    `Hello Moaz, I am interested in a commercial video similar to "${video.title}" (${shareUrl})`
   );
   const whatsappLink = `https://wa.me/201080453968?text=${whatsappMsg}`;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
       
-      {/* Dark Cosmic Backdrop Blur */}
+      {/* Deep Charcoal Backdrop */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-black/95 backdrop-blur-2xl transition-opacity animate-in fade-in duration-300"
+        className="fixed inset-0 bg-[#1F2430]/90 backdrop-blur-sm transition-opacity duration-300"
       />
 
       {/* Main Modal Container */}
-      <div className="relative z-10 w-full max-w-4xl bg-black/90 border border-white/10 rounded-3xl shadow-[0_25px_60px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col md:flex-row my-auto max-h-[92vh]">
+      <div className="relative z-10 w-full max-w-4xl bg-[#FFFFFF] border border-[#E8DFD1] rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row my-auto max-h-[92vh] transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)]">
         
-        {/* Modal Close Button */}
+        {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-30 p-2.5 rounded-full bg-slate-950/80 border border-purple-500/40 text-slate-300 hover:text-white hover:bg-purple-900/50 hover:scale-110 transition-all shadow-lg"
+          className="btn-interaction absolute top-4 right-4 z-30 p-2.5 rounded-full bg-[#E8DFD1]/80 hover:bg-[#E8DFD1] text-[#1F2430]"
           title="Close Player"
+          aria-label="Close"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         {/* Video Frame Section */}
-        <div className="relative w-full md:w-[380px] bg-black flex items-center justify-center p-3 sm:p-4 border-b md:border-b-0 md:border-r border-purple-900/40 shrink-0">
+        <div className="relative w-full md:w-[380px] bg-[#1F2430] flex items-center justify-center p-4 border-b md:border-b-0 md:border-r border-[#E8DFD1] shrink-0">
           
-          {/* Cosmic Glow */}
-          <div className="absolute inset-4 bg-gradient-to-tr from-purple-600/30 via-pink-600/20 to-cyan-500/30 rounded-2xl blur-xl pointer-events-none" />
-
-          {/* Player Container */}
-          <div className="relative w-full max-w-[320px] aspect-[9/16] rounded-2xl overflow-hidden border-2 border-purple-500/50 shadow-[0_0_30px_rgba(139,92,246,0.3)] bg-slate-950">
+          {/* Player Aspect Ratio Container (9:16) */}
+          <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-lg">
             <iframe
               src={youtubeEmbedUrl}
               title={currentTitle}
@@ -92,91 +88,91 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
             />
           </div>
 
-          {/* Next / Previous Quick Floating Controls */}
-          <div className="absolute left-2 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
-            <button
-              onClick={handlePrev}
-              className="p-2.5 rounded-full bg-slate-950/80 border border-purple-500/40 text-purple-300 hover:text-white hover:bg-purple-900/60 transition-all shadow-md"
-              title="Previous Video"
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-          </div>
+          {/* Quick Prev / Next Floating Controls */}
+          <button
+            onClick={handlePrev}
+            className="btn-interaction absolute left-2 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#E8DFD1]/90 hover:bg-[#E8DFD1] text-[#1F2430] shadow-md z-20"
+            title="Previous Commercial"
+            aria-label="Previous"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
 
-          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
-            <button
-              onClick={handleNext}
-              className="p-2.5 rounded-full bg-slate-950/80 border border-purple-500/40 text-purple-300 hover:text-white hover:bg-purple-900/60 transition-all shadow-md"
-              title="Next Video"
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
-
+          <button
+            onClick={handleNext}
+            className="btn-interaction absolute right-2 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-[#E8DFD1]/90 hover:bg-[#E8DFD1] text-[#1F2430] shadow-md z-20"
+            title="Next Commercial"
+            aria-label="Next"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
 
-        {/* Video Info & Interactive Actions Sidebar */}
-        <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between space-y-6 overflow-y-auto">
+        {/* Video Info & Inquiries Sidebar */}
+        <div className="flex-1 p-6 sm:p-8 flex flex-col justify-between space-y-6 overflow-y-auto bg-[#FAF7F2]">
           
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-3">
-              <span className="text-xs text-slate-400 font-medium">
-                {currentIndex + 1} / {allVideos.length}
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#E8DFD1] text-[#1F2430] uppercase tracking-wider">
+                Commercial Film
+              </span>
+              <span className="text-xs font-mono text-[#1F2430]/60">
+                {currentIndex + 1} of {allVideos.length}
               </span>
             </div>
 
             {/* Video Title */}
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white leading-snug">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1F2430] leading-snug">
               {currentTitle}
             </h2>
+
+            <p className="text-xs sm:text-sm text-[#1F2430]/70 leading-relaxed">
+              Produced and directed by Moaz Genidy using tailored generative video pipelines, high-resolution upscaling, and bespoke sound design.
+            </p>
           </div>
 
-          {/* Action CTAs */}
-          <div className="space-y-3 pt-4 border-t border-slate-800">
+          {/* Actions */}
+          <div className="space-y-3 pt-6 border-t border-[#E8DFD1]">
             
-            {/* Order Similar Video via WhatsApp */}
+            {/* WhatsApp CTA */}
             <a
               href={whatsappLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 px-5 rounded-2xl bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-sm flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-950/60 hover:scale-[1.02] transition-all"
+              className="btn-interaction w-full py-3.5 px-5 rounded-xl bg-[#1F2430] hover:bg-[#2B3242] text-[#E8DFD1] font-semibold text-xs flex items-center justify-center gap-2.5 shadow-sm"
             >
-              <MessageCircle className="w-5 h-5 fill-white" />
-              <span>Contact via WhatsApp</span>
+              <MessageCircle className="w-4 h-4" />
+              <span>Inquire about this project on WhatsApp</span>
             </a>
 
-            {/* Secondary Actions Row */}
+            {/* Secondary Actions */}
             <div className="grid grid-cols-2 gap-3">
-              
-              {/* Copy Share Link */}
               <button
                 onClick={handleCopyShare}
-                className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700 transition-all"
+                className="btn-interaction py-2.5 px-3 rounded-xl bg-[#FFFFFF] hover:bg-[#E8DFD1]/50 text-[#1F2430] font-medium text-xs flex items-center justify-center gap-2 border border-[#E8DFD1]"
               >
                 {copied ? (
                   <>
-                    <Check className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-400">Copied!</span>
+                    <Check className="w-3.5 h-3.5 text-[#1F2430]" />
+                    <span>Link Copied</span>
                   </>
                 ) : (
                   <>
-                    <Share2 className="w-4 h-4 text-cyan-400" />
-                    <span>Share Link</span>
+                    <Share2 className="w-3.5 h-3.5 opacity-70" />
+                    <span>Share Video</span>
                   </>
                 )}
               </button>
 
-              {/* Open on YouTube */}
               <a
                 href={shareUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="py-3 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-semibold text-xs flex items-center justify-center gap-2 border border-slate-700 transition-all"
+                className="btn-interaction py-2.5 px-3 rounded-xl bg-[#FFFFFF] hover:bg-[#E8DFD1]/50 text-[#1F2430] font-medium text-xs flex items-center justify-center gap-2 border border-[#E8DFD1]"
               >
-                <ExternalLink className="w-4 h-4 text-red-400" />
+                <ExternalLink className="w-3.5 h-3.5 opacity-70" />
                 <span>Open YouTube</span>
               </a>
-
             </div>
 
           </div>
@@ -187,4 +183,3 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
     </div>
   );
 };
-

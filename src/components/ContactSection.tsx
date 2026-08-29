@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import { MessageCircle, Instagram, ArrowUpRight, Check, Copy } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/videos';
+import { Reveal } from './Reveal';
 
-interface ContactSectionProps {
-  lang?: 'ar' | 'en';
-}
-
-export const ContactSection: React.FC<ContactSectionProps> = () => {
+export const ContactSection: React.FC = () => {
   const [copiedPhone, setCopiedPhone] = useState(false);
 
   const handleCopyPhone = () => {
@@ -16,108 +13,117 @@ export const ContactSection: React.FC<ContactSectionProps> = () => {
   };
 
   return (
-    <section id="contact" className="py-12 md:py-20 relative overflow-hidden">
-      
-      {/* Decorative Nebula Glow */}
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-emerald-600/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+    <section id="contact" className="py-16 md:py-24 bg-[#F7F4EE] border-t border-[#E8DFD1]">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Header */}
-        <div className="space-y-3 mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 border border-emerald-500/30 text-emerald-300 text-xs font-bold shadow-md">
-            <MessageCircle className="w-4 h-4 text-emerald-400" />
-            <span>Contact</span>
+        <Reveal distance={20} duration={650} className="space-y-4 mb-12">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E8DFD1]/80 text-[#1F2430] text-xs font-semibold uppercase tracking-wider">
+            <span>Get in Touch</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Get In Touch
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#1F2430] tracking-tight">
+            Start a Commercial Project
           </h2>
-        </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-[#1F2430]/70 max-w-xl mx-auto leading-relaxed">
+            Available for brand campaigns, commercial videos, luxury product showcases, and creative consultations worldwide.
+          </p>
+        </Reveal>
+
+        {/* Contact Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto text-left">
           
           {/* WhatsApp Card */}
-          <div className="bg-black/60 backdrop-blur-xl rounded-3xl p-6 border border-emerald-500/30 hover:border-emerald-400/60 shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all flex flex-col justify-between text-start">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl bg-emerald-600/20 flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5 text-emerald-400 fill-emerald-400" />
+          <Reveal delay={100} distance={28} duration={650} direction="up">
+            <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-7 border border-[#E8DFD1] hover:border-[#1F2430]/30 shadow-sm hover:shadow-md transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 flex flex-col justify-between space-y-6 h-full">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-full bg-[#1F2430] text-[#E8DFD1] flex items-center justify-center">
+                    <MessageCircle className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#E8DFD1] text-[#1F2430]">
+                    Direct Chat
+                  </span>
                 </div>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-950/80 text-emerald-300 border border-emerald-500/30">
+
+                <h3 className="text-lg font-bold text-[#1F2430] mb-1">
                   WhatsApp
-                </span>
+                </h3>
+                <p className="text-sm text-[#1F2430]/70 font-mono">
+                  +20 108 045 3968
+                </p>
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-1">
-                WhatsApp Chat
-              </h3>
-              <p className="text-xs text-slate-400 mb-6">
-                +20 108 045 3968
-              </p>
-            </div>
+              <div className="space-y-2.5">
+                <a
+                  href={SOCIAL_LINKS.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-interaction w-full py-3 px-4 rounded-xl bg-[#1F2430] hover:bg-[#2B3242] text-[#E8DFD1] font-semibold text-xs flex items-center justify-center gap-2 shadow-sm"
+                >
+                  <span>Open WhatsApp Chat</span>
+                  <ArrowUpRight className="w-4 h-4 opacity-80" />
+                </a>
 
-            <div className="space-y-2">
-              <a
-                href={SOCIAL_LINKS.whatsapp}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 text-white font-bold text-xs flex items-center justify-between shadow-lg transition-all"
-              >
-                <span>Open WhatsApp</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
-
-              <button
-                onClick={handleCopyPhone}
-                className="w-full py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 font-semibold text-xs flex items-center justify-center gap-2 border border-white/10 transition-colors"
-              >
-                {copiedPhone ? (
-                  <>
-                    <Check className="w-4 h-4 text-emerald-400" />
-                    <span className="text-emerald-400">Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-4 h-4 text-slate-400" />
-                    <span>Copy Phone Number</span>
-                  </>
-                )}
-              </button>
+                <button
+                  onClick={handleCopyPhone}
+                  className="btn-interaction w-full py-2.5 px-3 rounded-xl bg-[#E8DFD1]/50 hover:bg-[#E8DFD1] text-[#1F2430] font-medium text-xs flex items-center justify-center gap-2"
+                >
+                  {copiedPhone ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-[#1F2430]" />
+                      <span>Number Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 opacity-60" />
+                      <span>Copy Phone Number</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Instagram Card */}
-          <div className="bg-black/60 backdrop-blur-xl rounded-3xl p-6 border border-purple-500/30 hover:border-pink-400/60 shadow-[0_20px_50px_rgba(0,0,0,0.8)] transition-all flex flex-col justify-between text-start">
-            <div>
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-10 h-10 rounded-xl bg-pink-600/20 flex items-center justify-center">
-                  <Instagram className="w-5 h-5 text-pink-400" />
+          <Reveal delay={200} distance={28} duration={650} direction="up">
+            <div className="bg-[#FFFFFF] rounded-2xl p-6 sm:p-7 border border-[#E8DFD1] hover:border-[#1F2430]/30 shadow-sm hover:shadow-md transition-all duration-350 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 flex flex-col justify-between space-y-6 h-full">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="w-10 h-10 rounded-full bg-[#E8DFD1] text-[#1F2430] flex items-center justify-center">
+                    <Instagram className="w-4 h-4" />
+                  </div>
+                  <span className="text-[11px] font-semibold tracking-wider uppercase px-2.5 py-1 rounded-full bg-[#E8DFD1] text-[#1F2430]">
+                    Social Profile
+                  </span>
                 </div>
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-purple-950/80 text-purple-300 border border-purple-500/30">
+
+                <h3 className="text-lg font-bold text-[#1F2430] mb-1">
                   Instagram
-                </span>
+                </h3>
+                <p className="text-sm text-[#1F2430]/70 font-mono">
+                  @m0_e_x
+                </p>
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-1">
-                Instagram Profile
-              </h3>
-              <p className="text-xs text-slate-400 mb-6">
-                @m0_e_x
-              </p>
-            </div>
+              <div className="space-y-2.5">
+                <a
+                  href={SOCIAL_LINKS.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-interaction w-full py-3 px-4 rounded-xl bg-[#1F2430] hover:bg-[#2B3242] text-[#E8DFD1] font-semibold text-xs flex items-center justify-center gap-2 shadow-sm"
+                >
+                  <span>Follow @m0_e_x</span>
+                  <ArrowUpRight className="w-4 h-4 opacity-80" />
+                </a>
 
-            <a
-              href={SOCIAL_LINKS.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:opacity-95 text-white font-bold text-xs flex items-center justify-between shadow-lg transition-all"
-            >
-              <span>Follow @m0_e_x</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </a>
-          </div>
+                <div className="text-center py-2 text-[11px] text-[#1F2430]/60 font-medium">
+                  Latest updates & behind-the-scenes
+                </div>
+              </div>
+            </div>
+          </Reveal>
 
         </div>
 
