@@ -1,6 +1,7 @@
 import React from 'react';
-import { MessageCircle, Instagram, ArrowUp } from 'lucide-react';
+import { MessageCircle, Instagram, ArrowUp, Mail } from 'lucide-react';
 import { SOCIAL_LINKS } from '../data/videos';
+import { RESUME_DATA } from '../data/resume';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -18,16 +19,24 @@ export const Footer: React.FC = () => {
           </div>
           <div>
             <div className="font-bold text-sm text-[#E8DFD1]">
-              Moaz Genidy
+              Moaz Badawi Genidy
             </div>
             <p className="text-[11px] text-[#E8DFD1]/70">
-              Commercial AI Video Creator & Director
+              Commercial AI Video Creator & Prompt Engineer
             </p>
           </div>
         </div>
 
         {/* Links */}
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          <a
+            href={`mailto:${RESUME_DATA.email}`}
+            className="text-[#E8DFD1]/80 hover:text-[#E8DFD1] transition-colors flex items-center gap-1.5 font-medium"
+          >
+            <Mail className="w-3.5 h-3.5" />
+            <span>{RESUME_DATA.email}</span>
+          </a>
+
           <a
             href={SOCIAL_LINKS.whatsapp}
             target="_blank"

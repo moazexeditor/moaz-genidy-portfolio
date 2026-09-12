@@ -2,15 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Header } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { VideoGallery } from './components/VideoGallery';
-import { AboutSection } from './components/AboutSection';
+import { ResumeSection } from './components/ResumeSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { VideoPlayerModal } from './components/VideoPlayerModal';
+import { CVModal } from './components/CVModal';
 import { VIDEOS } from './data/videos';
 import { VideoItem } from './types';
 
 export default function App() {
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
+  const [isCVModalOpen, setIsCVModalOpen] = useState(false);
 
   useEffect(() => {
     document.documentElement.dir = 'ltr';
@@ -38,6 +40,7 @@ export default function App() {
           {/* Hero Section */}
           <HeroSection
             onExploreClick={handleScrollToGallery}
+            onOpenCV={() => setIsCVModalOpen(true)}
             videoCount={VIDEOS.length}
           />
 
@@ -46,8 +49,10 @@ export default function App() {
             onSelectVideo={(video) => setSelectedVideo(video)}
           />
 
-          {/* Approach & Creative Direction */}
-          <AboutSection />
+          {/* Curriculum Vitae & Professional Qualifications */}
+          <ResumeSection
+            onOpenCVModal={() => setIsCVModalOpen(true)}
+          />
 
           {/* Contact Section */}
           <ContactSection />
@@ -67,6 +72,12 @@ export default function App() {
           onSelectVideo={(video) => setSelectedVideo(video)}
         />
       )}
+
+      {/* Official Curriculum Vitae Modal (Print & PDF ready) */}
+      <CVModal
+        isOpen={isCVModalOpen}
+        onClose={() => setIsCVModalOpen(false)}
+      />
 
     </div>
   );

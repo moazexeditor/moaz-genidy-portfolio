@@ -14,8 +14,8 @@ interface RevealProps {
 export const Reveal: React.FC<RevealProps> = ({
   children,
   delay = 0,
-  duration = 650,
-  distance = 32,
+  duration = 850,
+  distance = 30,
   direction = 'up',
   threshold = 0.15,
   className = '',
@@ -82,7 +82,7 @@ export const Reveal: React.FC<RevealProps> = ({
         transform: getTransform(),
         transitionProperty: 'opacity, transform',
         transitionDuration: `${duration}ms`,
-        transitionTimingFunction: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
         transitionDelay: `${delay}ms`,
         willChange: isVisible ? 'auto' : 'opacity, transform',
       }}

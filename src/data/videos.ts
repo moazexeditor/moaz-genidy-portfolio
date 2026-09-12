@@ -94,6 +94,60 @@ export const VIDEOS: VideoItem[] = [
     youtubeId: 'Gua8HjSospo',
     title: 'Marketing Company Advertisement',
     category: 'corporate',
+  },
+  {
+    id: 'vid-18',
+    youtubeId: 'gj5E0OJDBOs',
+    title: 'Electronics Store Advertisement',
+    category: 'products',
+  },
+  {
+    id: 'vid-19',
+    youtubeId: '2VzJnNUv8Pw',
+    title: 'Electronics Store Advertisement 2',
+    category: 'products',
+  },
+  {
+    id: 'vid-20',
+    youtubeId: 'AS5zIgiIhtQ',
+    title: 'Al-Amin Electronics Shop',
+    category: 'products',
+  },
+  {
+    id: 'vid-21',
+    youtubeId: 'xjX_QLyKpkM',
+    title: 'Vacuum Cleaner Advertisement',
+    category: 'products',
+  },
+  {
+    id: 'vid-22',
+    youtubeId: 'jv6Xx3T_4Dg',
+    title: 'Mursal App',
+    category: 'corporate',
+  },
+  {
+    id: 'vid-23',
+    youtubeId: 'bqW85iRyqio',
+    title: 'Mursal App Commercial',
+    category: 'corporate',
+  },
+  {
+    id: 'vid-24',
+    youtubeId: 'Hx0__u4bLeo',
+    title: 'International School Announcement',
+    category: 'services',
+  },
+  {
+    id: 'vid-25',
+    youtubeId: 'mkWLtbtKDOQ',
+    title: 'Invo Fit',
+    category: 'products',
+  },
+  {
+    id: 'vid-26',
+    youtubeId: 'ALhif3WzGBA',
+    title: 'Advertisement for a Social Media Services Company',
+    category: 'corporate',
   }
 ];
 

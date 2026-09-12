@@ -52,10 +52,13 @@ export const Header: React.FC<HeaderProps> = ({ videoCount }) => {
           </button>
 
           <button
-            onClick={() => scrollToSection('about')}
-            className="nav-link-animated hover:text-[#1F2430] transition-colors py-1"
+            onClick={() => scrollToSection('resume')}
+            className="nav-link-animated hover:text-[#1F2430] transition-colors flex items-center gap-1.5 py-1"
           >
-            Approach
+            <span>Curriculum Vitae</span>
+            <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#E8DFD1] text-[#1F2430] font-bold">
+              CV
+            </span>
           </button>
 
           <button
@@ -115,10 +118,13 @@ export const Header: React.FC<HeaderProps> = ({ videoCount }) => {
           </button>
 
           <button
-            onClick={() => scrollToSection('about')}
-            className="w-full text-left py-2.5 px-3 rounded-lg hover:bg-[#E8DFD1] text-[#1F2430] text-sm font-semibold"
+            onClick={() => scrollToSection('resume')}
+            className="w-full text-left py-2.5 px-3 rounded-lg hover:bg-[#E8DFD1] text-[#1F2430] text-sm font-semibold flex items-center justify-between"
           >
-            Approach
+            <span>Curriculum Vitae</span>
+            <span className="text-xs px-2 py-0.5 rounded-full bg-[#E8DFD1] text-[#1F2430]">
+              CV
+            </span>
           </button>
 
           <button

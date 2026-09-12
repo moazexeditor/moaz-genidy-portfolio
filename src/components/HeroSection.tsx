@@ -1,14 +1,15 @@
 import React from 'react';
-import { MessageCircle, Instagram, ArrowDown, ArrowUpRight } from 'lucide-react';
+import { MessageCircle, Instagram, ArrowDown, ArrowUpRight, FileText } from 'lucide-react';
 import profilePhoto from '../assets/profile-photo.png';
 import { SOCIAL_LINKS } from '../data/videos';
 
 interface HeroSectionProps {
   onExploreClick: () => void;
+  onOpenCV?: () => void;
   videoCount: number;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick, videoCount }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick, onOpenCV, videoCount }) => {
   return (
     <section id="hero" className="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,6 +76,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick, videoC
                 <ArrowDown className="w-4 h-4" />
               </button>
 
+              {/* Curriculum Vitae (CV) Button */}
+              {onOpenCV && (
+                <button
+                  onClick={onOpenCV}
+                  className="btn-interaction inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-full bg-[#FFFFFF] border border-[#DDD3C3] text-[#1F2430] hover:bg-[#E8DFD1]/50 font-semibold text-sm shadow-xs"
+                >
+                  <FileText className="w-4 h-4 text-[#1F2430]/70" />
+                  <span>Curriculum Vitae</span>
+                </button>
+              )}
+
               {/* Instagram Quick Link */}
               <a
                 href={SOCIAL_LINKS.instagram}
@@ -91,7 +103,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick, videoC
             {/* Proof Points Bar (850ms) */}
             <div className="animate-hero-stats pt-6 border-t border-[#E8DFD1] grid grid-cols-3 gap-4 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
               <div>
-                <div className="text-xl sm:text-2xl font-bold text-[#1F2430]">14+</div>
+                <div className="text-xl sm:text-2xl font-bold text-[#1F2430]">{videoCount}+</div>
                 <div className="text-xs text-[#1F2430]/65 font-medium">Commercials</div>
               </div>
               <div>
