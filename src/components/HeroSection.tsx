@@ -1,6 +1,6 @@
 import React from 'react';
 import { MessageCircle, Instagram, ArrowDown, ArrowUpRight, FileText } from 'lucide-react';
-import profilePhoto from '../assets/profile-photo.png';
+import profilePhoto from '../assets/profile-photo-1.png';
 import { SOCIAL_LINKS } from '../data/videos';
 
 interface HeroSectionProps {
@@ -120,7 +120,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick, onOpen
 
           {/* Right Column: Featured Profile Photo (5 cols) */}
           <div className="lg:col-span-5 flex justify-center order-1 lg:order-2">
-            <div className="relative w-64 sm:w-72 md:w-80 max-w-full">
+            <div className="relative w-64 sm:w-72 md:w-80 lg:w-[340px] max-w-full">
               
               {/* Editorial Frame behind the real image (Step 1: 100ms entrance) */}
               <div 
@@ -130,13 +130,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick, onOpen
 
               {/* Main Photo Card (Step 2: 250ms entrance) */}
               <div 
-                className="animate-hero-photo relative rounded-2xl overflow-hidden bg-[#E8DFD1] border border-[#DDD3C3] shadow-md aspect-square"
+                className="animate-hero-photo relative rounded-2xl overflow-hidden bg-[#E8DFD1] border border-[#DDD3C3] shadow-md aspect-[3/4]"
                 style={{ transformOrigin: 'center center' }}
               >
                 <img
                   src={profilePhoto}
-                  alt="Profile photo"
-                  className="hero-profile-image w-full h-full object-cover object-center"
+                  alt="Moaz Genidy — AI Video Creator"
+                  className="hero-profile-image w-full h-full object-cover object-top"
                   loading="eager"
                 />
 
@@ -144,7 +144,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick, onOpen
                 <div className="absolute bottom-3 left-3 right-3 bg-[#1F2430]/90 backdrop-blur-sm text-[#E8DFD1] px-4 py-2 rounded-xl flex items-center justify-between text-xs transition-opacity duration-300">
                   <div>
                     <span className="font-semibold block">Moaz Genidy</span>
-                    <span className="text-[10px] text-[#E8DFD1]/70 block">Commercial Video Specialist</span>
+                    <span className="text-[10px] text-[#E8DFD1]/70 block">Commercial AI Video Creator</span>
                   </div>
                   <span className="inline-block w-2 h-2 rounded-full bg-[#E8DFD1]" />
                 </div>
