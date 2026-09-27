@@ -1,8 +1,11 @@
 export interface VideoItem {
   id: string;
-  youtubeId: string;
+  youtubeId?: string;
+  videoUrl?: string;
+  thumbnailUrl?: string;
   title: string;
   category: string;
+  badge?: string;
 }
 
 export interface VideoCategory {

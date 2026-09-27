@@ -148,6 +148,18 @@ export const VIDEOS: VideoItem[] = [
     youtubeId: 'ALhif3WzGBA',
     title: 'Advertisement for a Social Media Services Company',
     category: 'corporate',
+  },
+  {
+    id: 'vid-27',
+    youtubeId: 'Qqobd2tYujs',
+    title: 'Advertisement for Sama Al-Khalil Gym',
+    category: 'services',
+  },
+  {
+    id: 'vid-28',
+    youtubeId: '39rhSpqkb7g',
+    title: 'Bedspread Advertisement',
+    category: 'interior',
   }
 ];
 

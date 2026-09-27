@@ -10,9 +10,10 @@ interface VideoCardProps {
 export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlay }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [imgError, setImgError] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   const title = video.title;
-  const thumbnailUrl = `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg`;
+  const thumbnailUrl = video.thumbnailUrl || (video.youtubeId ? `https://i.ytimg.com/vi/${video.youtubeId}/hqdefault.jpg` : '');
 
   return (
     <div
@@ -23,29 +24,52 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onPlay }) => {
       <div className="relative w-full aspect-[9/15] bg-[#E8DFD1]/50 overflow-hidden">
         
         {/* Loading State */}
-        {!imgLoaded && !imgError && (
+        {!imgLoaded && !imgError && thumbnailUrl && (
           <div className="absolute inset-0 bg-[#E8DFD1]/60 flex items-center justify-center">
             <Film className="w-8 h-8 text-[#1F2430]/30 animate-pulse" />
           </div>
         )}
 
         {/* Thumbnail Image with smooth 400ms load transition */}
-        <img
-          src={thumbnailUrl}
-          alt={title}
-          onLoad={() => setImgLoaded(true)}
-          onError={() => setImgError(true)}
-          className={`w-full h-full object-cover object-center transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.035] ${
-            imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.015]'
-          }`}
-          loading="lazy"
-        />
+        {thumbnailUrl ? (
+          <img
+            src={thumbnailUrl}
+            alt={title}
+            onLoad={() => setImgLoaded(true)}
+            onError={() => setImgError(true)}
+            className={`w-full h-full object-cover object-center transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.035] ${
+              imgLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-[1.015]'
+            }`}
+            loading="lazy"
+          />
+        ) : (video.videoUrl && !videoError) ? (
+          <div className="relative w-full h-full bg-[#1F2430] flex items-center justify-center">
+            <video
+              src={video.videoUrl}
+              preload="metadata"
+              muted
+              playsInline
+              onError={() => setVideoError(true)}
+              className="w-full h-full object-cover opacity-85 group-hover:opacity-100 transition-opacity duration-300"
+            />
+          </div>
+        ) : null}
 
-        {/* Fallback if error */}
-        {imgError && (
-          <div className="absolute inset-0 bg-[#E8DFD1] flex flex-col items-center justify-center p-4 text-center">
-            <Film className="w-10 h-10 text-[#1F2430]/40 mb-2" />
-            <span className="text-xs font-semibold text-[#1F2430]">{title}</span>
+        {/* Fallback if error or no source */}
+        {(imgError || videoError || (!thumbnailUrl && !video.videoUrl)) && (
+          <div className="absolute inset-0 bg-[#1F2430] flex flex-col items-center justify-center p-4 text-center">
+            <Film className="w-10 h-10 text-[#E8DFD1]/60 mb-2" />
+            <span className="text-xs font-semibold text-[#E8DFD1] px-2">{title}</span>
+            <span className="text-[10px] text-[#E8DFD1]/50 mt-1 uppercase tracking-wider">AI Commercial</span>
+          </div>
+        )}
+
+        {/* Badge if specified */}
+        {video.badge && (
+          <div className="absolute top-3 left-3 z-10">
+            <span className="py-1 px-2.5 rounded-full bg-[#1F2430]/90 text-[#E8DFD1] text-[10px] font-bold tracking-wider uppercase backdrop-blur-sm border border-[#E8DFD1]/30 shadow-sm">
+              {video.badge}
+            </span>
           </div>
         )}
 

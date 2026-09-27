@@ -36,8 +36,12 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
   const handlePrev = () => onSelectVideo(prevVideo);
   const handleNext = () => onSelectVideo(nextVideo);
 
-  const youtubeEmbedUrl = `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`;
-  const shareUrl = `https://www.youtube.com/shorts/${video.youtubeId}`;
+  const youtubeEmbedUrl = video.youtubeId
+    ? `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1&origin=${encodeURIComponent(window.location.origin)}`
+    : '';
+  const shareUrl = video.youtubeId
+    ? `https://www.youtube.com/shorts/${video.youtubeId}`
+    : video.videoUrl || window.location.href;
 
   const handleCopyShare = () => {
     navigator.clipboard.writeText(shareUrl);
@@ -78,14 +82,31 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
         <div className="relative w-full md:w-[380px] bg-[#1F2430] flex items-center justify-center p-4 border-b md:border-b-0 md:border-r border-[#E8DFD1] shrink-0">
           
           {/* Player Aspect Ratio Container (9:16) */}
-          <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-lg">
-            <iframe
-              src={youtubeEmbedUrl}
-              title={currentTitle}
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+          <div className="relative w-full max-w-[300px] aspect-[9/16] rounded-2xl overflow-hidden bg-black shadow-lg flex items-center justify-center">
+            {video.youtubeId ? (
+              <iframe
+                src={youtubeEmbedUrl}
+                title={currentTitle}
+                className="w-full h-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : video.videoUrl ? (
+              <video
+                src={video.videoUrl}
+                poster={video.thumbnailUrl}
+                controls
+                autoPlay
+                playsInline
+                preload="auto"
+                className="w-full h-full object-contain bg-black"
+              />
+            ) : (
+              <div className="p-6 text-center text-[#E8DFD1] space-y-3">
+                <span className="text-sm font-semibold">{currentTitle}</span>
+                <p className="text-xs text-[#E8DFD1]/60">Commercial video preview is ready.</p>
+              </div>
+            )}
           </div>
 
           {/* Quick Prev / Next Floating Controls */}
@@ -171,7 +192,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({
                 className="btn-interaction py-2.5 px-3 rounded-xl bg-[#FFFFFF] hover:bg-[#E8DFD1]/50 text-[#1F2430] font-medium text-xs flex items-center justify-center gap-2 border border-[#E8DFD1]"
               >
                 <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-                <span>Open YouTube</span>
+                <span>{video.youtubeId ? 'Open YouTube' : 'Open Video'}</span>
               </a>
             </div>
 
